@@ -1,5 +1,6 @@
 ScreenShot
 ![img.png](img.png)
+<img src="img.png" alt="Screenshot" width="300"/>
 
 # 1. Add Dependency
 ### 1. Add dependency for room database in app level build.gradle.kts
