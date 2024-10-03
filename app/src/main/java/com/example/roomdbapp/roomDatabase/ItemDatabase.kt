@@ -36,7 +36,7 @@ abstract class ItemDatabase : RoomDatabase() {
                     context,
                     ItemDatabase::class.java,
                     "item_database"
-                ).allowMainThreadQueries().build()
+                ).build()
                     .also { INSTANCE = it }
             }
         }

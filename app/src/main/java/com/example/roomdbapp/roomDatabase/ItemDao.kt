@@ -30,7 +30,7 @@ import androidx.room.Update
 interface ItemDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertItem(note: Item)
+    suspend fun insertItem(note: Item)
 
     @Delete
     suspend fun deleteItem(note: Item)
@@ -42,9 +42,13 @@ interface ItemDao {
     @Query("DELETE FROM item_table")
     suspend fun deleteAllItem()
 
-    // Get all data from the notes_table
-    @Query("SELECT * FROM item_table ORDER BY item_id DESC")
+    // Get all data from the item_table
+    @Query("SELECT * FROM item_table")
     fun getAllItemsInDB(): LiveData<List<Item>>
+
+    // Get all data from the item_table order by item_id in descending order
+    @Query("SELECT * FROM item_table ORDER BY item_id DESC")
+    fun getAllItemsDescInDB(): LiveData<List<Item>>
 
     // Search with title and body
     @Query("SELECT * FROM item_table WHERE item_name LIKE :query OR  item_price LIKE :query")

@@ -6,9 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.roomdbapp.databinding.ActivityMainBinding
 import com.example.roomdbapp.roomDatabase.Item
 import com.example.roomdbapp.roomDatabase.ItemDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -20,6 +24,8 @@ class MainActivity : AppCompatActivity() {
         binding.btnSave.setOnClickListener {
             insertItem()
         }
+
+        displayAllRecords()
     }
 
     fun insertItem() {
@@ -42,6 +48,28 @@ class MainActivity : AppCompatActivity() {
         // Inserting data into Database
         var item: Item = Item(0,name, doublePrice, intQuantity)
 
-        itemDao.insertItem(item)
+        CoroutineScope(Dispatchers.IO).launch {
+            itemDao.insertItem(item)
+        }
+    }
+
+    fun displayAllRecords() {
+        // Instance of the Database
+        val itemDB = ItemDatabase.getDatabase(applicationContext)
+        // Instance of DAO
+        val itemDao = itemDB.getItemDao()
+
+        itemDao.getAllItemsInDB().observe(this, Observer {
+            var result = ""
+
+            for ((index, item) in it.withIndex()){
+                result = result + "${index+1}.  item = ${item.name} \n     price = ${item.price} \n     quantity = ${item.quantity} \n__________________\n"
+//                result = it.joinToString("\n")
+            }
+
+            binding.tvRecords.text = result
+        })
+
+
     }
 }

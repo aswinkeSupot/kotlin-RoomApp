@@ -56,14 +56,12 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$room_version")
 
-//    // KAPT
-//    kapt("groupId:artifactId:version")
-
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$room_version")
 
-    // Add Coroutines dependency
+    //Coroutines
+    // Kotlin Coroutines dependency
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-
-
+    // Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
 }
