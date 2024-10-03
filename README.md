@@ -96,7 +96,9 @@ implementation("androidx.room:room-ktx:$room_version")
     We can just Tick the Live update or add Query in the New Query section.
     
 ````
-![img_1.png](img_1.png)
+<img src="img_1.png" alt="Inspection" height="300"/>
+
+[//]: # (![img_1.png]&#40;img_1.png&#41;)
 
 
 
