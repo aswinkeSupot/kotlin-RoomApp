@@ -1,4 +1,4 @@
-ScreenShot
+# App ScreenShots
 <img src="img.png" alt="Screenshot" width="300"/>
 
 # 1. Add Dependency
