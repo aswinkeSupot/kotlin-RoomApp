@@ -64,4 +64,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$room_version")
+
+    // Glide load Image
+    implementation("com.github.bumptech.glide:glide:4.13.2")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.13.2")
 }
