@@ -40,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
         displayAllRecords()
     }
 
-    fun displayAllRecords() {
+    private fun displayAllRecords() {
         // Instance of the Database
         val itemDB = ItemDatabase.getDatabase(applicationContext)
         // Instance of DAO
@@ -49,14 +49,14 @@ class HomeActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 itemDao.getAllItemsInDB().observe(this@HomeActivity, Observer {
-                    if(it.size >0){
+                    if(it.isNotEmpty()){
                         var result = ""
 
                         for ((index, item) in it.withIndex()){
-                            result = result + "${index+1}.  item = ${item.name} \n     price = ${item.price} \n     quantity = ${item.quantity} \n__________________\n"
+                            result += "${index + 1}.  item = ${item.name} \n     price = ${item.price} \n     quantity = ${item.quantity} \n__________________\n"
 
                             var itemval = Item(
-                                0,
+                                item.id,
                                 item.name,
                                 item.price,
                                 item.quantity
@@ -65,7 +65,14 @@ class HomeActivity : AppCompatActivity() {
                         }
 
                         // RecyclerView
-                        adapter = ItemRecyclerAdapter(applicationContext,itemList)
+                        adapter = ItemRecyclerAdapter(applicationContext,itemList, object :ItemRecyclerAdapter.OnItemClickListener{
+                            override fun onItemClick(item: Item) {
+                                val intent = Intent(this@HomeActivity, ItemDetailsActivity::class.java)
+                                intent.putExtra("item", item) // Pass the item as Serializable
+                                startActivity(intent)
+                            }
+
+                        })
                         binding.recyclerView.setAdapter(adapter)
                         adapter.notifyDataSetChanged()
 

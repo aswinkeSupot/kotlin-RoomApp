@@ -30,13 +30,13 @@ import androidx.room.Update
 interface ItemDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertItem(note: Item)
+    suspend fun insertItem(item: Item)
 
     @Delete
-    suspend fun deleteItem(note: Item)
+    suspend fun deleteItem(item: Item)
 
     @Update
-    suspend fun updateItem(note: Item)
+    suspend fun updateItem(item: Item)
 
     // Delete all data from the table "item_table" with a custom Query
     @Query("DELETE FROM item_table")
